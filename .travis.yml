@@ -34,6 +34,6 @@ before_script:
   # Clone samtools/htslib (or another repository, as specified by a Travis CI
   # repository $HTSREPO setting) and check out a corresponding branch with the
   # same name, if any, or otherwise the default branch.
-  - .travis/clone ${HTSREPO:-https://github.com/mchristiansen/htslib.git} $HTSDIR $TRAVIS_BRANCH
+  - .travis/clone ${HTSREPO:-https://github.com/mchristiansen23/htslib.git} $HTSDIR $TRAVIS_BRANCH
 
 script: make -e && make -e test
