@@ -37,7 +37,7 @@ deploy:
   provider: releases
   api_key:
     secure: qhFsz07VcEMoxJqJYvtQWAj8/yDTUHCdtHkoE4y/b8t0Y33B8h+OFUB+QB1/7qay/bCUvxiBYG8kosqrDXsctj5mo+hb2IUsize4xAsCuscwAvzodQSfPXgi3VEkEBMgw4fAaJd6WSKmHCJfHeFywAr+QoFlQ8aKXMB+brcdZkGCe7W4ZI+ugIgm2jwLoYGGMTERzQKgYFxP7Das6sJxXTDJVZaaz1f3OtGODioJffeMeimWs+gH6l0Iztpp30gHUqUJIlwo0tjkLOI0P1t1+SvE51IChj7Y57ZDLfbw6x8eWypnNNNVmMaHQLYC5a6TCR3URrI6llGCjUa12qiB3MSjU07DYFvL3q8raHTfYagoVUlqMpMa5ZmRiriWd6sk6LFfyFuKKv+1ZFV3Y0pt98YYaJG+QCkyVTMW4Mpxu3AOvGnFKtUVY/+MotQ1GLAnf+cNDaQ8e9hFHuR4Qh8R4ryQp97+PSUqZQN4GhWfoTZfRD1iD9Q7SlksrduVGQxaVLly11wi8J/1gwSeWzFKKUjYj7zYUt6In6NOzlq18T69DEbEEYwFF3t22HoYlAa0y8QF2AMHkAjMjsnP2icRqiSRYozyhK4DSoKBBRneWLgcB6F4zRq4d/meABuoVw8uq7xvD3zRewHLDLtz14WNYwE21uwVQX2UDcw5NY5lcNE=
-  file: *.rpm
+  file: "*.rpm"
   on:
     tags: true
   skip_cleanup: true
