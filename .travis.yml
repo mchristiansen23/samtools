@@ -29,7 +29,13 @@ before_script:
 - gem install --no-ri --no-rdoc fpm
 - ".travis/clone ${HTSREPO:-https://github.com/mchristiansen23/htslib.git} $HTSDIR
   $TRAVIS_BRANCH"
-script: make -e && make -e test && make package
+script: make -e && make -e test
+before_deploy:
+  # Set up git user name and tag this commit
+  - git config --local user.name "mwchristiansen"
+  - git config --local user.email "mwchristiansen@gmail.com"
+  - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+  - make package
 deploy:
   provider: releases
   api_key:
