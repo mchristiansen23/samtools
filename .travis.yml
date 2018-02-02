@@ -13,7 +13,7 @@ matrix:
     compiler: clang
 env:
   global:
-  - HTSDIR=./htslib
+    - HTSDIR=./htslib
 addons:
   apt:
     packages:
@@ -23,10 +23,10 @@ addons:
   gem:
     - fpm 
 before_install:
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then HOMEBREW_NO_AUTO_UPDATE=1 brew install
-  xz || ( brew update && brew install xz ); fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then HOMEBREW_NO_AUTO_UPDATE=1 brew install xz || ( brew update && brew install xz ); fi
+  - gem install --no-ri --no-rdoc fpm
 before_script:
-- ".travis/clone ${HTSREPO:-https://github.com/mchristiansen23/htslib.git} $HTSDIR $TRAVIS_BRANCH"
+  - .travis/clone ${HTSREPO:-https://github.com/mchristiansen23/htslib.git} $HTSDIR $TRAVIS_BRANCH
 script: make -e && make -e test && make -d package
 deploy:
   provider: releases
