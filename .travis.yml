@@ -36,4 +36,4 @@ before_script:
   # same name, if any, or otherwise the default branch.
   - .travis/clone ${HTSREPO:-https://github.com/mchristiansen23/htslib.git} $HTSDIR $TRAVIS_BRANCH
 
-script: make -e && make -e test
+script: make -e && make -e test && make package
