@@ -1,6 +1,13 @@
 # Control file for continuous integration testing at http://travis-ci.org/
 
 language: c
+language: ruby
+rvm:
+  - 2.2
+  - jruby
+  - 2.0.0-p247
+
+install: gem install --no-ri --no-rdoc fpm
 
 matrix:
   include:
