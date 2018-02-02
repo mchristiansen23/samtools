@@ -27,7 +27,9 @@ before_install:
   - gem install --no-ri --no-rdoc fpm
 before_script:
   - .travis/clone ${HTSREPO:-https://github.com/mchristiansen23/htslib.git} $HTSDIR $TRAVIS_BRANCH
-  - ./configure
+  - autoheader
+  - autoconf
+  - ./configure --enable-libcurl --enable-s3 --enable-plugins
 script: make -e && make -e test && make -d package
 deploy:
   provider: releases
