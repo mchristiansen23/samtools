@@ -43,3 +43,4 @@ deploy:
   file: "samtools_$TRAVIS_TAG.rpm"
   on:
     tags: true
+  skip_cleanup: true
