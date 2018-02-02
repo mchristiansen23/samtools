@@ -1,45 +1,40 @@
-# Control file for continuous integration testing at http://travis-ci.org/
-
 language: c
-language: ruby
-rvm:
-  - 2.2
-  - jruby
-  - 2.0.0-p247
 
 matrix:
   include:
-    - os: linux
-      compiler: clang
-    - os: linux
-      compiler: gcc
-    # An unoptimised C99 build, for detecting non-static inline functions
-    - os: linux
-      compiler: gcc
-      env: CFLAGS="-std=gnu99 -O0"
-    - os: osx
-      compiler: clang
-
+  - os: linux
+    compiler: clang
+  - os: linux
+    compiler: gcc
+  - os: linux
+    compiler: gcc
+    env: CFLAGS="-std=gnu99 -O0"
+  - os: osx
+    compiler: clang
 env:
   global:
-    - HTSDIR=./htslib
-
-# For linux systems
+  - HTSDIR=./htslib
 addons:
   apt:
     packages:
     - liblzma-dev
     - libbz2-dev
-
-# For MacOSX systems
+    - rpm-build
+    - rpmtools
+  gem:
+    - fpm 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then HOMEBREW_NO_AUTO_UPDATE=1 brew install xz || ( brew update && brew install xz ); fi
-
+- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then HOMEBREW_NO_AUTO_UPDATE=1 brew install
+  xz || ( brew update && brew install xz ); fi
 before_script:
-  # Clone samtools/htslib (or another repository, as specified by a Travis CI
-  # repository $HTSREPO setting) and check out a corresponding branch with the
-  # same name, if any, or otherwise the default branch.
-  - gem install --no-ri --no-rdoc fpm
-  - .travis/clone ${HTSREPO:-https://github.com/mchristiansen23/htslib.git} $HTSDIR $TRAVIS_BRANCH
-
+- gem install --no-ri --no-rdoc fpm
+- ".travis/clone ${HTSREPO:-https://github.com/mchristiansen23/htslib.git} $HTSDIR
+  $TRAVIS_BRANCH"
 script: make -e && make -e test && make package
+deploy:
+  provider: releases
+  api_key:
+    secure: qhFsz07VcEMoxJqJYvtQWAj8/yDTUHCdtHkoE4y/b8t0Y33B8h+OFUB+QB1/7qay/bCUvxiBYG8kosqrDXsctj5mo+hb2IUsize4xAsCuscwAvzodQSfPXgi3VEkEBMgw4fAaJd6WSKmHCJfHeFywAr+QoFlQ8aKXMB+brcdZkGCe7W4ZI+ugIgm2jwLoYGGMTERzQKgYFxP7Das6sJxXTDJVZaaz1f3OtGODioJffeMeimWs+gH6l0Iztpp30gHUqUJIlwo0tjkLOI0P1t1+SvE51IChj7Y57ZDLfbw6x8eWypnNNNVmMaHQLYC5a6TCR3URrI6llGCjUa12qiB3MSjU07DYFvL3q8raHTfYagoVUlqMpMa5ZmRiriWd6sk6LFfyFuKKv+1ZFV3Y0pt98YYaJG+QCkyVTMW4Mpxu3AOvGnFKtUVY/+MotQ1GLAnf+cNDaQ8e9hFHuR4Qh8R4ryQp97+PSUqZQN4GhWfoTZfRD1iD9Q7SlksrduVGQxaVLly11wi8J/1gwSeWzFKKUjYj7zYUt6In6NOzlq18T69DEbEEYwFF3t22HoYlAa0y8QF2AMHkAjMjsnP2icRqiSRYozyhK4DSoKBBRneWLgcB6F4zRq4d/meABuoVw8uq7xvD3zRewHLDLtz14WNYwE21uwVQX2UDcw5NY5lcNE=
+  file: ''
+  on:
+    repo: mwchristiansen/samtools
