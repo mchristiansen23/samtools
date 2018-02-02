@@ -34,7 +34,7 @@ LZ4_CPPFLAGS = -I$(LZ4DIR)
 LZ4_LDFLAGS  = -L$(LZ4DIR)
 
 NAME=samtools
-VERSION=$(shell git describe)
+VERSION=$(shell git describe --tags)
 
 
 LOBJS=      bam_aux.o bam.o bam_import.o sam.o \
