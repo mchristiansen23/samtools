@@ -19,8 +19,7 @@ addons:
     packages:
     - liblzma-dev
     - libbz2-dev
-    - rpm-build
-    - rpmtools
+    - rpm
   gem:
     - fpm 
 before_install:
