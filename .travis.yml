@@ -7,8 +7,6 @@ rvm:
   - jruby
   - 2.0.0-p247
 
-install: gem install --no-ri --no-rdoc fpm
-
 matrix:
   include:
     - os: linux
@@ -41,6 +39,7 @@ before_script:
   # Clone samtools/htslib (or another repository, as specified by a Travis CI
   # repository $HTSREPO setting) and check out a corresponding branch with the
   # same name, if any, or otherwise the default branch.
+  - gem install --no-ri --no-rdoc fpm
   - .travis/clone ${HTSREPO:-https://github.com/mchristiansen23/htslib.git} $HTSDIR $TRAVIS_BRANCH
 
 script: make -e && make -e test && make package
