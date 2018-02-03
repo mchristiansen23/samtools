@@ -326,7 +326,7 @@ package:
 	@echo $(NAME)
 	@echo $(PACKAGE_VERSION)
 	@echo $(PROGRAMS)
-	NAME = $(NAME)_$(PACKAGE_VERSION)
+	NAME=$(NAME)_$(PACKAGE_VERSION)
 	@echo $(NAME)
 	@fpm -s dir -t deb -n $(NAME) -v $(PACKAGE_VERSION) --prefix /opt/samtools $(PROGRAMS)
 	@fpm -s dir -t rpm -n $(NAME) -v $(PACKAGE_VERSION) --prefix /opt/samtools $(PROGRAMS)
