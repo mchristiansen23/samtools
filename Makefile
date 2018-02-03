@@ -32,10 +32,8 @@ LIBS     =
 LZ4DIR   = ./lz4
 LZ4_CPPFLAGS = -I$(LZ4DIR)
 LZ4_LDFLAGS  = -L$(LZ4DIR)
-
+	
 NAME=samtools
-VERSION=$(shell git describe --tags)
-
 
 LOBJS=      bam_aux.o bam.o bam_import.o sam.o \
             sam_header.o bam_plbuf.o
@@ -325,9 +323,13 @@ distclean: clean
 clean-all: clean clean-htslib
 
 package:
-	@echo $(VERSION)
-	@fpm -s dir -t deb -n $(NAME) -v $(VERSION) --prefix /opt/samtools $(PROGRAMS)
-	@fpm -s dir -t rpm -n $(NAME) -v $(VERSION) --prefix /opt/samtools $(PROGRAMS)
+	@echo $(NAME)
+	@echo $(PACKAGE_VERSION)
+	@echo $(PROGRAMS)
+	NAME = $(NAME)_$(PACKAGE_VERSION)
+	@echo $(NAME)
+	@fpm -s dir -t deb -n $(NAME) -v $(PACKAGE_VERSION) --prefix /opt/samtools $(PROGRAMS)
+	@fpm -s dir -t rpm -n $(NAME) -v $(PACKAGE_VERSION) --prefix /opt/samtools $(PROGRAMS)
 
 tags:
 	ctags -f TAGS *.[ch] misc/*.[ch]
